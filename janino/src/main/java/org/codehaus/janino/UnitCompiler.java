@@ -5846,6 +5846,9 @@ class UnitCompiler {
         if (cv != UnitCompiler.NOT_CONSTANT) {
             this.fakeCompile(rv); // To check that, e.g., "a" compiles in "true || a".
             this.consT(rv, cv);
+            if (cv == null && rv instanceof ConditionalExpression) {
+                this.tryNullConversion(IClass.NULL, this.getType2((ConditionalExpression)rv));
+            }
             return this.getType(rv);
         }
 

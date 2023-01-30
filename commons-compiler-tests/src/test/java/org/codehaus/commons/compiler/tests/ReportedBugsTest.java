@@ -1656,7 +1656,15 @@ class ReportedBugsTest extends CommonsCompilerTestSuite {
     @Test public void
     testIssue188() throws Exception {
         this.assertScriptExecutable("Object o = true ? (String) null : \"\";");
+        this.assertScriptExecutable("int i = true ? 3 : 4;");
+        this.assertScriptExecutable("int i = null == null ? 2 : 4;");
+        this.assertScriptExecutable("Object o = false ? \"\" : null;");
         this.assertScriptExecutable("Object o = true ? (Object) null : \"\";");
-        this.assertScriptExecutable("Object o = true ?          null : \"\";"); // <= InternalCompilerException
+        this.assertScriptExecutable("Object o = true ?          null : \"\";");
+        this.assertScriptExecutable("String s = new StringBuilder().append(true ? (String) null : \"abc\").toString();");
+        this.assertScriptExecutable("String s = new StringBuilder().append(true ? (String) null : \"abc\").toString();");
+        this.assertScriptExecutable("String s = new StringBuilder().append(false ? null : \"abc\").toString();");
+        this.assertScriptExecutable("String s = new StringBuilder().append(0 == 0 ? (String) null : \"abc\").toString();");
+        this.assertScriptExecutable("StringBuilder s = new StringBuilder().append(0 == 0 ? null : \"abc\");");
     }
 }
